@@ -1,61 +1,31 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      :clipped="$vuetify.breakpoint.lgAndUp"
-      app
-    >
+    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <v-list dense>
         <template v-for="item in items">
-          <v-row
-            v-if="item.heading"
-            :key="item.heading"
-            align="center"
-          >
+          <v-row v-if="item.heading" :key="item.heading" align="center">
             <v-col cols="6">
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
+              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-col>
-            <v-col
-              cols="6"
-              class="text-center"
-            >
-              <a
-                href="#!"
-                class="body-2 black--text"
-              >EDIT</a>
+            <v-col cols="6" class="text-center">
+              <a href="#!" class="body-2 black--text">EDIT</a>
             </v-col>
           </v-row>
-          
-          <v-list-item
-            v-else
-            :key="item.text"
-            @click="goToLink(item)"
-          >
+
+          <v-list-item v-else :key="item.text" @click="goToLink(item)">
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>
-                {{ item.text }}
-              </v-list-item-title>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      app
-      color="blue darken-3"
-      dark
-    >
-      <v-toolbar-title
-        style="width: 300px"
-        class="ml-0 pl-4"
-      >
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-3" dark>
+      <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <span class="hidden-sm-and-down">Afya Mkononi</span>
       </v-toolbar-title>
@@ -68,110 +38,67 @@
         class="hidden-sm-and-down"
       ></v-text-field>
       <div class="flex-grow-1"></div>
-      
-      <v-btn
-        icon
-        large
-      >
-        <v-avatar
-          size="32px"
-          item
-        >
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
-          >
-          </v-img></v-avatar>
+
+      <v-btn icon large>
+        <v-avatar size="32px" item>
+          <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify"></v-img>
+        </v-avatar>
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <router-view/>
+      <v-container class="fill-height" fluid>
+        <router-view />
       </v-container>
     </v-content>
-    <v-btn
-      bottom
-      color="pink"
-      dark
-      fab
-      fixed
-      right
-      @click="dialog = !dialog"
-    >
+    <v-btn bottom color="pink" dark fab fixed right @click="dialog = !dialog">
       <v-icon>add</v-icon>
     </v-btn>
-    <v-dialog
-      v-model="dialog"
-      width="800px"
-    >
+    <v-dialog v-model="dialog" width="800px">
       <v-card>
-        <v-card-title class="grey darken-2">
-          Add Hospital
-        </v-card-title>
+        <v-card-title class="grey darken-2">Add Hospital</v-card-title>
         <v-container>
           <v-row>
-            <v-col
-              class="align-center justify-space-between"
-              cols="12"
-            >
+            <v-col class="align-center justify-space-between" cols="12">
               <v-row align="center">
-                <v-avatar
-                  size="40px"
-                  class="mr-4"
-                >
-                  <img
-                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                    alt=""
-                  >
+                <v-avatar size="40px" class="mr-4">
+                  <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt />
                 </v-avatar>
-                <v-text-field
-                  placeholder="Name"
-                ></v-text-field>
+                <v-text-field placeholder="Name" v-model="name"></v-text-field>
               </v-row>
             </v-col>
             <v-col cols="12">
               <v-text-field
                 prepend-icon="business"
-                placeholder="Location"
+                placeholder="Government ID"
+                v-model="governmentId"
               ></v-text-field>
             </v-col>
-            
+
             <v-col cols="12">
-              <v-text-field
-                prepend-icon="mail"
-                placeholder="Email"
-              ></v-text-field>
+              <v-text-field prepend-icon="mail" placeholder="Email" v-model="email"></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
                 type="tel"
                 prepend-icon="phone"
                 placeholder="+254 700 000000"
+                v-model="phoneNumber"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
                 prepend-icon="notes"
-                placeholder="Notes"
+                type="password"
+                placeholder="Password"
+                v-model="password"
               ></v-text-field>
             </v-col>
           </v-row>
         </v-container>
         <v-card-actions>
-      
           <div class="flex-grow-1"></div>
-          <v-btn
-            text
-            color="primary"
-            @click="dialog = false"
-          >Cancel</v-btn>
-          <v-btn
-            text
-            @click="dialog = false"
-          >Save</v-btn>
+          <v-btn text color="primary" @click="dialog = false">Cancel</v-btn>
+          <v-btn text :loading="facilitySaving" @click="addFacility">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -179,20 +106,52 @@
 </template>
 
 <script>
+import apiClient from "@/plugins/api";
 export default {
-  name: 'KMPDU',
+  name: "KMPDU",
   data: () => ({
     dialog: false,
     drawer: true,
     items: [
-      { icon: 'account_circle', text: 'Home', path: '' },
-      { icon: 'list', text: 'Health Facilities', path: 'healthfacilities'}
-      ]
+      { icon: "account_circle", text: "Home", path: "" },
+      { icon: "list", text: "Health Facilities", path: "healthfacilities" }
+    ],
+    facilitySaving: false,
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    governmentId: ""
   }),
   methods: {
     goToLink(item) {
       this.$router.push({ path: `/kmpdu/${item.path}` });
     },
-  },
-}
+    async addFacility() {
+      this.initLoading();
+
+      try {
+        const response = await apiClient.post("/accounts", {
+          gov_id: this.governmentId,
+          name: this.name,
+          email: this.email,
+          phone_number: this.phoneNumber,
+          password: this.password,
+          type: "healthfacility"
+        });
+        this.dialog = false;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.finishLoading();
+      }
+    },
+    initLoading() {
+      this.facilitySaving = true;
+    },
+    finishLoading() {
+      this.facilitySaving = false;
+    }
+  }
+};
 </script>

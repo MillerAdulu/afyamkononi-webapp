@@ -129,11 +129,11 @@ export default {
           phone_number: this.phoneNumber,
           type: "user"
         });
+        this.dialog = false;
       } catch (error) {
         console.error(error);
       } finally {
         this.finishLoading();
-        this.dialog = false;
       }
     },
     initLoading() {
