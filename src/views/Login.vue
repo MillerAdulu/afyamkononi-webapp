@@ -57,7 +57,6 @@ export default {
         let token = response.data.access_token;
         let decoded = jwt.decode(token, { complete: true });
 
-        console.log(decoded);
         localStorage.setItem("token", token);
         localStorage.setItem("id", decoded.payload.id);
         localStorage.setItem("name", decoded.payload.name);
@@ -77,8 +76,8 @@ export default {
           default:
             break;
         }
-      } catch (error) {
-        console.error(error);
+      } catch (_) {
+        this.finishLoading();
       } finally {
         this.finishLoading();
       }

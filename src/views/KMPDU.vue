@@ -131,7 +131,7 @@ export default {
       this.initLoading();
 
       try {
-        const response = await apiClient.post("/accounts", {
+        await apiClient.post("/accounts", {
           gov_id: this.governmentId,
           name: this.name,
           email: this.email,
@@ -140,8 +140,8 @@ export default {
           type: "healthfacility"
         });
         this.dialog = false;
-      } catch (error) {
-        console.error(error);
+      } catch (_) {
+        this.finishLoading();
       } finally {
         this.finishLoading();
       }
