@@ -20,7 +20,12 @@ const BaseConnection = axios.create({
 BaseConnection.interceptors.request.use(config => {
   let token = localStorage.getItem('token')
   if (token) {
-    config.headers.Authorization = `Bearer ${ token }`
+    let headers = {
+      'Authorization': `Bearer ${ token }`
+    }
+    config.headers = {
+      ...headers
+    }
   }
   return config
 }, err => {
