@@ -68,20 +68,27 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
-                prepend-icon="business"
+                prepend-icon="notes"
                 placeholder="Government ID"
+                hint="00000"
                 v-model="governmentId"
               ></v-text-field>
             </v-col>
 
             <v-col cols="12">
-              <v-text-field prepend-icon="mail" placeholder="Email" v-model="email"></v-text-field>
+              <v-text-field
+                prepend-icon="mail"
+                placeholder="Email"
+                hint="facility@afyamkononi.com"
+                v-model="email"
+              ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
                 type="tel"
                 prepend-icon="phone"
                 placeholder="+254 700 000000"
+                hint="254 700 000000"
                 v-model="phoneNumber"
               ></v-text-field>
             </v-col>
