@@ -63,12 +63,18 @@
                 <v-avatar size="40px" class="mr-4">
                   <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt />
                 </v-avatar>
-                <v-text-field placeholder="Name" v-model="name"></v-text-field>
+                <v-text-field placeholder="Name" hint="Super Patient" v-model="name"></v-text-field>
               </v-row>
             </v-col>
 
             <v-col cols="6">
-              <v-text-field type="text" prepend-icon="phone" v-model="governmentId" hint="0000000"></v-text-field>
+              <v-text-field
+                type="text"
+                prepend-icon="notes"
+                v-model="governmentId"
+                placeholder="Government ID"
+                hint="0000000"
+              ></v-text-field>
             </v-col>
 
             <v-col cols="6">
@@ -76,12 +82,18 @@
                 type="tel"
                 prepend-icon="phone"
                 v-model="phoneNumber"
-                hint="+254 700 000000"
+                placeholder="254 700 000000"
+                hint="254 700 000000"
               ></v-text-field>
             </v-col>
 
-            <v-col cols="12">
-              <v-text-field prepend-icon="mail" placeholder="Email" v-model="email"></v-text-field>
+            <v-col cols="6">
+              <v-text-field
+                prepend-icon="mail"
+                placeholder="Email"
+                hint="patient@email.com"
+                v-model="email"
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-container>

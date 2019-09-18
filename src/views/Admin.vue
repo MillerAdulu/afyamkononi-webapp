@@ -53,22 +53,110 @@
     <v-btn bottom color="pink" dark fab fixed right @click="dialog = !dialog">
       <v-icon>add</v-icon>
     </v-btn>
+    <v-dialog v-model="dialog" width="800px">
+      <v-card>
+        <v-card-title class="grey darken-2">Add Board</v-card-title>
+        <v-container>
+          <v-row>
+            <v-col class="align-center justify-space-between" cols="12">
+              <v-row align="center">
+                <v-avatar size="40px" class="mr-4">
+                  <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt />
+                </v-avatar>
+                <v-text-field placeholder="Name" v-model="name"></v-text-field>
+              </v-row>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                prepend-icon="notes"
+                placeholder="Government ID"
+                hint="000000"
+                v-model="governmentId"
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="12">
+              <v-text-field
+                prepend-icon="mail"
+                hint="board@afyamkononi.com"
+                placeholder="Email"
+                v-model="email"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                type="tel"
+                prepend-icon="phone"
+                placeholder="254 700 000000"
+                hint="254 700 000000"
+                v-model="phoneNumber"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                prepend-icon="notes"
+                type="password"
+                placeholder="Password"
+                v-model="password"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-card-actions>
+          <div class="flex-grow-1"></div>
+          <v-btn text color="primary" @click="dialog = false">Cancel</v-btn>
+          <v-btn text :loading="boardSaving" @click="addBoard">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
+import apiClient from "@/plugins/api";
+
 export default {
   name: "Admin",
   data: () => ({
     drawer: true,
-    items: [
-      { icon: "account_circle", text: "Home", path: "" },
-      { icon: "list", text: "Health Facilities", path: "healthfacilities" }
-    ]
+    dialog: false,
+    items: [{ icon: "account_circle", text: "Home", path: "" }],
+    boardSaving: false,
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    governmentId: ""
   }),
   methods: {
     goToLink(item) {
-      this.$router.push({ path: `/kmpdu/${item.path}` });
+      this.$router.push({ path: `/admin/${item.path}` });
+    },
+    async addBoard() {
+      this.initLoading();
+
+      try {
+        await apiClient.post("/accounts", {
+          gov_id: this.governmentId,
+          name: this.name,
+          email: this.email,
+          phone_number: this.phoneNumber,
+          password: this.password,
+          type: "registrar"
+        });
+        this.dialog = false;
+      } catch (error) {
+        console.error(error);
+        this.finishLoading();
+      } finally {
+        this.finishLoading();
+      }
+    },
+    initLoading() {
+      this.boardSaving = true;
+    },
+    finishLoading() {
+      this.boardSaving = false;
     }
   }
 };

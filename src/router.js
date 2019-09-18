@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '@/views/Login'
+import Admin from '@/views/Admin'
 import KMPDU from '@/views/KMPDU'
 import HealthFacility from "@/views/HealthFacility";
 
@@ -19,6 +20,10 @@ export default new Router({
     {
       path: '/',
       component: Login,
+    },
+    {
+      path: '/admin',
+      component: Admin,
     },
     {
       path: '/kmpdu',

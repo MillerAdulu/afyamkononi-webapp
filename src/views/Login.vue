@@ -64,7 +64,7 @@ export default {
 
         switch (decoded.payload.type) {
           case "admin":
-            this.$router.push({ path: "/" });
+            this.$router.push({ path: "/admin" });
             break;
           case "registrar":
             this.$router.push({ path: "/kmpdu" });
