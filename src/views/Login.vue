@@ -72,8 +72,8 @@ export default {
           case "healthfacility":
             this.$router.push({ path: "/healthfacility" });
             break;
-
           default:
+            this.$router.push({ path: "/" });
             break;
         }
       } catch (_) {
