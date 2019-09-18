@@ -13,11 +13,10 @@ import FacilityPatients from '@/components/FacilityPatients'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
       component: Login,
     },
@@ -28,20 +27,37 @@ export default new Router({
     {
       path: '/kmpdu',
       component: KMPDU,
-      children: [
-        {path: 'healthfacilities',
-      component: HealthFacilites}
-      ]
+      children: [{
+        path: 'healthfacilities',
+        component: HealthFacilites
+      }]
     },
     {
       path: '/healthfacility',
       component: HealthFacility,
-      children: [
-        {path: 'patients',
-      component: FacilityPatients},
-      {path: 'addpatientrecord',
-    component: AddPatientRecord}
+      children: [{
+          path: 'patients',
+          component: FacilityPatients
+        },
+        {
+          path: 'addpatientrecord',
+          component: AddPatientRecord
+        }
       ]
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  let token = localStorage.getItem("token")
+  let userType = localStorage.getItem("type")
+
+  if (token.length == 0 && to.fullPath != '/') next({
+    path: '/'
+  })
+
+  next()
+
+})
+
+export default router
