@@ -50,7 +50,7 @@ export default {
       this.initLoading();
 
       try {
-        const response = await apiClient.post("/accounts/sign_in", {
+        const response = await apiClient.post("/auth/sign_in", {
           email: this.email,
           password: this.password
         });
