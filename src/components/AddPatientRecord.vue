@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="grey lighten-4 py-4 title">Add HomeSense</v-card-title>
+    <v-card-title class="grey lighten-4 py-4 title">Add Patient Record</v-card-title>
     <v-container grid-list-sm class="pa-4">
       <v-layout row wrap>
         <!-- <v-flex xs12>
@@ -75,8 +75,13 @@ export default {
           seen_by: this.seenBy
         })
         .then(response => {
-          if (response.success) console.log("Success Papi");
-          else console.log("No success Papi!");
+          if (response.success) {
+            console.log("Success Papi");
+            this.symptoms = "";
+            this.diagnosis = "";
+            this.treatmentPlan = "";
+            this.seenBy = "";
+          } else console.log("No success Papi!");
 
           this.finishLoading();
         });
