@@ -119,9 +119,8 @@ export default {
     dialog: false,
     drawer: true,
     items: [
-      { icon: "account_circle", text: "Home", path: "" },
-      { icon: "list", text: "Patients", path: "patients" },
-      { icon: "edit", text: "Add Patient Record", path: "addpatientrecord" }
+      { icon: "account_circle", text: "Home", path: "healthfacility" },
+      { icon: "list", text: "Patients", path: "patients" }
     ],
     patientSaving: false,
     name: "",
@@ -133,6 +132,7 @@ export default {
   }),
   methods: {
     goToLink(item) {
+      if (item.path == "healthfacility") return;
       this.$router.push({ path: `/healthfacility/${item.path}` });
     },
     searchPatient() {
