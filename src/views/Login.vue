@@ -11,7 +11,13 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field label="Login" name="login" type="text" v-model="email"></v-text-field>
+                  <v-text-field
+                    label="Login"
+                    name="login"
+                    hint="a@b.com"
+                    type="text"
+                    v-model="email"
+                  ></v-text-field>
 
                   <v-text-field
                     id="password"
@@ -49,38 +55,39 @@ export default {
     async login() {
       this.initLoading();
 
-      try {
-        const response = await apiClient.post("/auth/sign_in", {
+      apiClient
+        .post("/auth/sign_in", {
           email: this.email,
           password: this.password
+        })
+        .then(response => {
+          if (response.access_token) {
+            let token = response.access_token;
+            let decoded = jwt.decode(token, { complete: true });
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("id", decoded.payload.id);
+            localStorage.setItem("name", decoded.payload.name);
+            localStorage.setItem("type", decoded.payload.type);
+
+            this.finishLoading();
+
+            switch (decoded.payload.type) {
+              case "admin":
+                this.$router.push({ path: "/admin" });
+                break;
+              case "registrar":
+                this.$router.push({ path: "/kmpdu" });
+                break;
+              case "healthfacility":
+                this.$router.push({ path: "/healthfacility" });
+                break;
+              default:
+                this.$router.push({ path: "/" });
+                break;
+            }
+          }
         });
-        let token = response.data.access_token;
-        let decoded = jwt.decode(token, { complete: true });
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("id", decoded.payload.id);
-        localStorage.setItem("name", decoded.payload.name);
-        localStorage.setItem("type", decoded.payload.type);
-
-        switch (decoded.payload.type) {
-          case "admin":
-            this.$router.push({ path: "/admin" });
-            break;
-          case "registrar":
-            this.$router.push({ path: "/kmpdu" });
-            break;
-          case "healthfacility":
-            this.$router.push({ path: "/healthfacility" });
-            break;
-          default:
-            this.$router.push({ path: "/" });
-            break;
-        }
-      } catch (_) {
-        this.finishLoading();
-      } finally {
-        this.finishLoading();
-      }
     },
     initLoading() {
       this.loading = true;

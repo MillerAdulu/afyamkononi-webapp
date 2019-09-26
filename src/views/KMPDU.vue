@@ -39,7 +39,7 @@
       ></v-text-field>
       <div class="flex-grow-1"></div>
 
-      <v-btn icon large>
+      <v-btn icon large @click="logout">
         <v-avatar size="32px" item>
           <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify"></v-img>
         </v-avatar>
@@ -134,24 +134,29 @@ export default {
     goToLink(item) {
       this.$router.push({ path: `/kmpdu/${item.path}` });
     },
+    logout() {
+      localStorage.clear();
+      this.$router.push({ path: "/" });
+    },
     async addFacility() {
       this.initLoading();
 
-      try {
-        await apiClient.post("/accounts", {
+      apiClient
+        .post("/accounts", {
           gov_id: this.governmentId,
           name: this.name,
           email: this.email,
           phone_number: this.phoneNumber,
           password: this.password,
           type: "healthfacility"
+        })
+        .then(response => {
+          if (response.success) console.log("Success Papi");
+          else console.log("No success Papi!");
+
+          this.dialog = false;
+          this.finishLoading();
         });
-        this.dialog = false;
-      } catch (_) {
-        this.finishLoading();
-      } finally {
-        this.finishLoading();
-      }
     },
     initLoading() {
       this.facilitySaving = true;
