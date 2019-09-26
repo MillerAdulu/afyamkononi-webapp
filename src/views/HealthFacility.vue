@@ -36,6 +36,9 @@
         prepend-inner-icon="search"
         label="Search"
         class="hidden-sm-and-down"
+        v-model="searchId"
+        :loading="searchLoading"
+        @keydown.enter="searchPatient"
       ></v-text-field>
       <div class="flex-grow-1"></div>
 
@@ -124,17 +127,30 @@ export default {
     name: "",
     email: "",
     phoneNumber: "",
-    governmentId: ""
+    governmentId: "",
+    searchId: "",
+    searchLoading: false
   }),
   methods: {
     goToLink(item) {
       this.$router.push({ path: `/healthfacility/${item.path}` });
     },
+    searchPatient() {
+      this.searchLoading = true;
+      apiClient.get(`/accounts/gov_id/${this.searchId}`).then(response => {
+        console.log(response);
+        if (response.data && response.creator) {
+          this.$store.dispatch("setPatientResult", response);
+          this.$router.push({ path: "/healthfacility/search" });
+        } else console.log(response);
+        this.searchLoading = false;
+      });
+    },
     logout() {
       localStorage.clear();
       this.$router.push({ path: "/" });
     },
-    async addPatient() {
+    addPatient() {
       this.initLoading();
 
       apiClient

@@ -7,6 +7,7 @@ import KMPDU from '@/views/KMPDU'
 import HealthFacility from "@/views/HealthFacility";
 
 import HealthFacilites from '@/components/HealthFacilities'
+import PatientInfo from '@/components/PatientInfo';
 import AddPatientRecord from '@/components/AddPatientRecord'
 
 import FacilityPatients from '@/components/FacilityPatients'
@@ -40,7 +41,11 @@ let router = new Router({
           component: FacilityPatients
         },
         {
-          path: 'addpatientrecord',
+          path: 'search',
+          component: PatientInfo,
+        },
+        {
+          path: 'new',
           component: AddPatientRecord
         }
       ]

@@ -60,14 +60,15 @@ export default {
     symptoms: "",
     diagnosis: "",
     treatmentPlan: "",
-    seenBy: ""
+    seenBy: "",
+    governmentId: ""
   }),
   methods: {
     async addPatientRecord() {
       this.initLoading();
 
       apiClient
-        .patch(`/records/${33989061}`, {
+        .patch(`/records/${this.governmentId}`, {
           symptoms: this.symptoms,
           diagnosis: this.diagnosis,
           treatment_plan: this.treatmentPlan,
@@ -86,6 +87,9 @@ export default {
     finishLoading() {
       this.loading = false;
     }
+  },
+  created() {
+    this.governmentId = this.$store.getters.patientResult.data.gov_id;
   }
 };
 </script>
