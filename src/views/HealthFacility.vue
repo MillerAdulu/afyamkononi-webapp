@@ -39,7 +39,7 @@
       ></v-text-field>
       <div class="flex-grow-1"></div>
 
-      <v-btn icon large>
+      <v-btn icon large @click="logout">
         <v-avatar size="32px" item>
           <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify"></v-img>
         </v-avatar>
@@ -129,6 +129,10 @@ export default {
   methods: {
     goToLink(item) {
       this.$router.push({ path: `/healthfacility/${item.path}` });
+    },
+    logout() {
+      localStorage.clear();
+      this.$router.push({ path: "/" });
     },
     async addPatient() {
       this.initLoading();
