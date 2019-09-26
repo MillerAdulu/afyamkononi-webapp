@@ -50,7 +50,6 @@ let router = new Router({
 
 router.beforeEach((to, _, next) => {
   let token = localStorage.getItem("token")
-  console.log(`Token: ${ token }`)
   if (token && token.length == 0 && to.fullPath != '/') next({
     path: '/'
   })
