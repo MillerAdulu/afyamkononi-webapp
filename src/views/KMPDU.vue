@@ -137,21 +137,22 @@ export default {
     async addFacility() {
       this.initLoading();
 
-      try {
-        await apiClient.post("/accounts", {
+      apiClient
+        .post("/accounts", {
           gov_id: this.governmentId,
           name: this.name,
           email: this.email,
           phone_number: this.phoneNumber,
           password: this.password,
           type: "healthfacility"
+        })
+        .then(response => {
+          if (response.success) console.log("Success Papi");
+          else console.log("No success Papi!");
+
+          this.dialog = false;
+          this.finishLoading();
         });
-        this.dialog = false;
-      } catch (_) {
-        this.finishLoading();
-      } finally {
-        this.finishLoading();
-      }
     },
     initLoading() {
       this.facilitySaving = true;
