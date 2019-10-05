@@ -99,7 +99,7 @@ export default {
         case "append_role":
           return {
             accountId: payload.account_id,
-            permission: payload.role_name
+            role: payload.role_name
           };
           break;
 
