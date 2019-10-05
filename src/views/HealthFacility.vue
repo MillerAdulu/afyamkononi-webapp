@@ -49,7 +49,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container class="fill-height" fluid>
+      <v-container>
         <router-view />
       </v-container>
     </v-content>
@@ -120,7 +120,7 @@ export default {
     drawer: true,
     items: [
       { icon: "account_circle", text: "Home", path: "healthfacility" },
-      { icon: "list", text: "Patients", path: "patients" }
+      { icon: "list", text: "Transactions", path: "transactions" }
     ],
     patientSaving: false,
     name: "",

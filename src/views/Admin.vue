@@ -36,6 +36,8 @@
         prepend-inner-icon="search"
         label="Search"
         class="hidden-sm-and-down"
+        v-model="search"
+        @keypress.enter="searchTransactions"
       ></v-text-field>
       <div class="flex-grow-1"></div>
 
@@ -46,7 +48,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container class="fill-height" fluid>
+      <v-container>
         <router-view />
       </v-container>
     </v-content>
@@ -118,9 +120,13 @@ import apiClient from "@/plugins/api";
 export default {
   name: "Admin",
   data: () => ({
+    search: "",
     drawer: true,
     dialog: false,
-    items: [{ icon: "account_circle", text: "Home", path: "" }],
+    items: [
+      { icon: "account_circle", text: "Home", path: "" },
+      { icon: "list", text: "Transaction Viewer", path: "transactions" }
+    ],
     boardSaving: false,
     name: "",
     email: "",
@@ -133,8 +139,8 @@ export default {
       this.$router.push({ path: `/admin/${item.path}` });
     },
     logout() {
-      localStorage.clear()
-      this.$router.push({ path: '/'})
+      localStorage.clear();
+      this.$router.push({ path: "/" });
     },
     async addBoard() {
       this.initLoading();
@@ -161,7 +167,8 @@ export default {
     },
     finishLoading() {
       this.boardSaving = false;
-    }
+    },
+    searchTransactions() {}
   }
 };
 </script>

@@ -46,7 +46,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container class="fill-height" fluid>
+      <v-container>
         <router-view />
       </v-container>
     </v-content>
@@ -115,13 +115,13 @@
 <script>
 import apiClient from "@/plugins/api";
 export default {
-  name: "KMPDU",
+  name: "KMPDB",
   data: () => ({
     dialog: false,
     drawer: true,
     items: [
       { icon: "account_circle", text: "Home", path: "" },
-      { icon: "list", text: "Health Facilities", path: "healthfacilities" }
+      { icon: "list", text: "Transactions", path: "transactions" }
     ],
     facilitySaving: false,
     name: "",
@@ -132,7 +132,7 @@ export default {
   }),
   methods: {
     goToLink(item) {
-      this.$router.push({ path: `/kmpdu/${item.path}` });
+      this.$router.push({ path: `/kmpdb/${item.path}` });
     },
     logout() {
       localStorage.clear();

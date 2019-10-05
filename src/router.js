@@ -3,14 +3,14 @@ import Router from 'vue-router'
 
 import Login from '@/views/Login'
 import Admin from '@/views/Admin'
-import KMPDU from '@/views/KMPDU'
+import KMPDB from '@/views/KMPDB'
 import HealthFacility from "@/views/HealthFacility";
 
 import HealthFacilites from '@/components/HealthFacilities'
 import PatientInfo from '@/components/PatientInfo';
 import AddPatientRecord from '@/components/AddPatientRecord'
 
-import FacilityPatients from '@/components/FacilityPatients'
+import AccountTransactions from '@/components/AccountTransactions'
 
 Vue.use(Router)
 
@@ -24,21 +24,30 @@ let router = new Router({
     {
       path: '/admin',
       component: Admin,
+      children: [
+        {
+          path: 'transactions',
+          component: AccountTransactions
+        },
+      ]
     },
     {
-      path: '/kmpdu',
-      component: KMPDU,
+      path: '/kmpdb',
+      component: KMPDB,
       children: [{
-        path: 'healthfacilities',
-        component: HealthFacilites
+        path: 'transactions',
+        component: AccountTransactions
+      }, {
+        path: 'transacations',
+        component: AccountTransactions
       }]
     },
     {
       path: '/healthfacility',
       component: HealthFacility,
       children: [{
-          path: 'patients',
-          component: FacilityPatients
+          path: 'transactions',
+          component: AccountTransactions
         },
         {
           path: 'search',
