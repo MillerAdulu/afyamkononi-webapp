@@ -64,9 +64,10 @@ export default {
           if (response.access_token) {
             let token = response.access_token;
             let decoded = jwt.decode(token, { complete: true });
-
+            
             localStorage.setItem("token", token);
             localStorage.setItem("id", decoded.payload.id);
+            localStorage.setItem("govId", decoded.payload.govId)
             localStorage.setItem("name", decoded.payload.name);
             localStorage.setItem("type", decoded.payload.type);
 
@@ -77,7 +78,7 @@ export default {
                 this.$router.push({ path: "/admin" });
                 break;
               case "registrar":
-                this.$router.push({ path: "/kmpdu" });
+                this.$router.push({ path: "/kmpdb" });
                 break;
               case "healthfacility":
                 this.$router.push({ path: "/healthfacility" });

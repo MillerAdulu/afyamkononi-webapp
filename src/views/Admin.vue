@@ -120,7 +120,10 @@ export default {
   data: () => ({
     drawer: true,
     dialog: false,
-    items: [{ icon: "account_circle", text: "Home", path: "" }],
+    items: [
+      { icon: "account_circle", text: "Home", path: "" },
+      { icon: "list", text: "Transaction Viewer", path: "transactions" }
+    ],
     boardSaving: false,
     name: "",
     email: "",
@@ -133,8 +136,8 @@ export default {
       this.$router.push({ path: `/admin/${item.path}` });
     },
     logout() {
-      localStorage.clear()
-      this.$router.push({ path: '/'})
+      localStorage.clear();
+      this.$router.push({ path: "/" });
     },
     async addBoard() {
       this.initLoading();

@@ -120,7 +120,7 @@ export default {
     drawer: true,
     items: [
       { icon: "account_circle", text: "Home", path: "healthfacility" },
-      { icon: "list", text: "Patients", path: "patients" }
+      { icon: "list", text: "Transactions", path: "transactions" }
     ],
     patientSaving: false,
     name: "",
