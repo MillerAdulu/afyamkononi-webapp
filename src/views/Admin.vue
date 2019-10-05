@@ -36,6 +36,8 @@
         prepend-inner-icon="search"
         label="Search"
         class="hidden-sm-and-down"
+        v-model="search"
+        @keypress.enter="searchTransactions"
       ></v-text-field>
       <div class="flex-grow-1"></div>
 
@@ -118,6 +120,7 @@ import apiClient from "@/plugins/api";
 export default {
   name: "Admin",
   data: () => ({
+    search: "",
     drawer: true,
     dialog: false,
     items: [
@@ -164,7 +167,8 @@ export default {
     },
     finishLoading() {
       this.boardSaving = false;
-    }
+    },
+    searchTransactions() {}
   }
 };
 </script>
