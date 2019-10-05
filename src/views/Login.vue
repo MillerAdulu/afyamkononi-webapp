@@ -37,11 +37,17 @@
         </v-row>
       </v-container>
     </v-content>
+
+    <v-snackbar v-model="snackbarStatus" multi-line>
+      {{ snackbarMessage }}
+      <v-btn :color="snackbarColor" text @click="hide">Close</v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
 import jwt from "jsonwebtoken";
+import { mapState } from "vuex";
 import apiClient from "@/plugins/api";
 
 export default {
@@ -51,7 +57,15 @@ export default {
     password: "",
     loading: false
   }),
+  computed: mapState({
+    snackbarColor: state => state.snackbarColor,
+    snackbarMessage: state => state.snackbarMessage,
+    snackbarStatus: state => state.snackbarStatus
+  }),
   methods: {
+    hide() {
+      this.$store.dispatch("setSnackbarStatus", false);
+    },
     async login() {
       this.initLoading();
 
@@ -64,14 +78,17 @@ export default {
           if (response.access_token) {
             let token = response.access_token;
             let decoded = jwt.decode(token, { complete: true });
-            
+
             localStorage.setItem("token", token);
             localStorage.setItem("id", decoded.payload.id);
-            localStorage.setItem("govId", decoded.payload.govId)
+            localStorage.setItem("govId", decoded.payload.govId);
             localStorage.setItem("name", decoded.payload.name);
             localStorage.setItem("type", decoded.payload.type);
 
             this.finishLoading();
+            this.$store.dispatch("setSnackbarColor", "green");
+            this.$store.dispatch("setSnackbarMessage", "Success");
+            this.$store.dispatch("setSnackbarStatus", true);
 
             switch (decoded.payload.type) {
               case "admin":
@@ -88,6 +105,10 @@ export default {
                 break;
             }
           }
+          console.log(response.error);
+          this.$store.dispatch("setSnackbarColor", "red");
+          this.$store.dispatch("setSnackbarMessage", response.error);
+          this.$store.dispatch("setSnackbarStatus", true);
         });
     },
     initLoading() {
