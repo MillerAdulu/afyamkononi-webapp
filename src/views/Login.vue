@@ -105,6 +105,7 @@ export default {
                 break;
             }
           }
+          this.finishLoading();
           console.log(response.error);
           this.$store.dispatch("setSnackbarColor", "red");
           this.$store.dispatch("setSnackbarMessage", response.error);

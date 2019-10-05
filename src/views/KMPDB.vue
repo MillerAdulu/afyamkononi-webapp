@@ -46,7 +46,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container class="fill-height" fluid>
+      <v-container>
         <router-view />
       </v-container>
     </v-content>
