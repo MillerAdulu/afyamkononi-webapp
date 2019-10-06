@@ -119,7 +119,7 @@ export default {
     dialog: false,
     drawer: true,
     items: [
-      { icon: "account_circle", text: "Home", path: "healthfacility" },
+      { icon: "account_circle", text: "Home", path: "" },
       { icon: "list", text: "Transactions", path: "transactions" }
     ],
     patientSaving: false,

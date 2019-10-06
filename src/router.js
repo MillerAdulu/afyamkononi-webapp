@@ -24,12 +24,10 @@ let router = new Router({
     {
       path: '/admin',
       component: Admin,
-      children: [
-        {
-          path: 'transactions',
-          component: AccountTransactions
-        },
-      ]
+      children: [{
+        path: 'transactions',
+        component: AccountTransactions
+      }, ]
     },
     {
       path: '/kmpdb',
