@@ -7,7 +7,14 @@
       <v-spacer />
       <v-btn @click="addrecord" color="primary">Add Record</v-btn>
     </v-card-title>
-    <v-data-table :headers="headers" item-key="id" :items="history" :search="search" sort-by="timestamp" sort-desc>
+    <v-data-table
+      :headers="headers"
+      item-key="id"
+      :items="history"
+      :search="search"
+      sort-by="timestamp"
+      sort-desc
+    >
       <template v-slot:item.timestamp="{ item }">{{ formatTime(item.timestamp) }}</template>
     </v-data-table>
   </v-card>

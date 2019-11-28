@@ -107,6 +107,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <base-snackbar />
   </v-app>
 </template>
 
@@ -137,14 +138,27 @@ export default {
     },
     searchPatient() {
       this.searchLoading = true;
-      apiClient.get(`/accounts/gov_id/${this.searchId}`).then(response => {
-        console.log(response);
-        if (response.data && response.creator) {
-          this.$store.dispatch("setPatientResult", response);
-          this.$router.push({ path: "/healthfacility/search" });
-        } else console.log(response);
-        this.searchLoading = false;
-      });
+      apiClient
+        .get(`/accounts/gov_id/${this.searchId}`)
+        .then(response => {
+          if (response.error) {
+            this.$store.commit(`setSnackbar`, {
+              msg: `${response.error}`,
+              type: `error`
+            });
+          }
+          if (response.data && response.creator) {
+            this.$store.dispatch("setPatientResult", response);
+            this.$router.push({ path: "/healthfacility/search" });
+          }
+          this.searchLoading = false;
+        })
+        .catch(error => {
+          this.$store.commit(`setSnackbar`, {
+            msg: `${error}`,
+            type: `error`
+          });
+        });
     },
     logout() {
       localStorage.clear();
@@ -163,8 +177,17 @@ export default {
           type: "user"
         })
         .then(response => {
-          if (response.success) console.log("Success Papi");
-          else console.log("No success Papi!");
+          if (response.success) {
+            this.$store.commit(`setSnackbar`, {
+              msg: `${response.success}`,
+              type: `success`
+            });
+          } else if (response.error) {
+            this.$store.commit(`setSnackbar`, {
+              msg: `${response.error}`,
+              type: `error`
+            });
+          }
 
           this.dialog = false;
           this.finishLoading();
