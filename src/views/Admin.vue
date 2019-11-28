@@ -40,11 +40,9 @@
         @keypress.enter="searchTransactions"
       ></v-text-field>
       <div class="flex-grow-1"></div>
-
-      <v-btn icon large @click="logout">
-        <v-avatar size="32px" item>
-          <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify"></v-img>
-        </v-avatar>
+      
+      <v-btn class="red" large @click="logout">
+        Log Out: {{displayName}}
       </v-btn>
     </v-app-bar>
     <v-content>
@@ -180,6 +178,11 @@ export default {
       this.boardSaving = false;
     },
     searchTransactions() {}
+  },
+  computed: {
+    displayName () {
+      return localStorage.getItem("name");
+    },
   }
 };
 </script>
