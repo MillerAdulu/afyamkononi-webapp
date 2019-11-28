@@ -6,7 +6,6 @@ import Admin from '@/views/Admin'
 import KMPDB from '@/views/KMPDB'
 import HealthFacility from "@/views/HealthFacility";
 
-import HealthFacilites from '@/components/HealthFacilities'
 import PatientInfo from '@/components/PatientInfo';
 import AddPatientRecord from '@/components/AddPatientRecord'
 

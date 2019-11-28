@@ -109,6 +109,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <base-snackbar />
   </v-app>
 </template>
 
@@ -151,8 +152,18 @@ export default {
           type: "healthfacility"
         })
         .then(response => {
-          if (response.success) console.log("Success Papi");
-          else console.log("No success Papi!");
+          if (response.success)
+            if (response.success) {
+              this.$store.commit(`setSnackbar`, {
+                msg: `${response.success}`,
+                type: `success`
+              });
+            } else if (response.error) {
+              this.$store.commit(`setSnackbar`, {
+                msg: `${response.error}`,
+                type: `error`
+              });
+            }
 
           this.dialog = false;
           this.finishLoading();

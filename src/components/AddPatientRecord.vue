@@ -76,12 +76,21 @@ export default {
         })
         .then(response => {
           if (response.success) {
-            console.log("Success Papi");
+            this.$store.commit(`setSnackbar`, {
+              msg: `${response.success}`,
+              type: `success`
+            });
+
             this.symptoms = "";
             this.diagnosis = "";
             this.treatmentPlan = "";
             this.seenBy = "";
-          } else console.log("No success Papi!");
+          } else if (response.error) {
+            this.$store.commit(`setSnackbar`, {
+              msg: `${response.error}`,
+              type: `error`
+            });
+          }
 
           this.finishLoading();
         });
